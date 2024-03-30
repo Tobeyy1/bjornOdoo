@@ -1,0 +1,40 @@
+.container {
+  width: 100%;
+  height: 100%;
+  color: var(--text100);
+}
+
+.file,
+.file__list,
+.accepted__file {
+  width: 100%;
+}
+
+.file {
+  margin-top: 2rem;
+}
+
+.accepted__file {
+  color: var(--text100);
+  padding: 1rem;
+  border-radius: 6px;
+  background-color: var(--secondary);
+  /* background-image: linear-gradient(
+    to top left,
+    var(--tertiary),
+    var(--tertiary-variant)
+  ); */
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.file__path {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+}
+
+.file__path span {
+  margin-right: 0.5rem;
+}

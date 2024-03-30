@@ -1,0 +1,17 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 100dvh;
+  overflow: "hidden";
+}
+
+.body {
+  display: flex;
+  flex: 1;
+}
+
+.children__container {
+  flex: 1;
+  height: calc(100vh - 6rem);
+}

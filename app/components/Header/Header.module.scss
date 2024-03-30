@@ -1,0 +1,49 @@
+.container {
+  display: flex;
+  background-color: var(--primary);
+  color: var(--text100);
+  height: 6rem;
+  padding: 1rem;
+  align-items: center;
+  width: 100%;
+
+  .left__container {
+    flex: 1;
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+
+    .menu__toggler {
+      background-color: var(--secondary);
+      padding: 0.5rem;
+      border-radius: 8px;
+      font-size: 20px;
+      border: none;
+      color: var(--tertiary);
+      cursor: pointer;
+    }
+
+    .company__name__and__logo {
+      gap: 0.5rem;
+      display: flex;
+      align-items: center;
+    }
+
+    .company__logo {
+      width: 3rem;
+      aspect-ratio: 1;
+      display: grid;
+      place-content: center;
+      font-size: 30px;
+      font-weight: 600;
+      background-color: var(--tertiary);
+      border-radius: 99px;
+    }
+  }
+
+  .right__container {
+    display: flex;
+    flex-direction: column;
+    font-size: 13px;
+  }
+}
