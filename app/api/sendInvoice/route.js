@@ -1,11 +1,5 @@
 import fetch from "node-fetch";
-import fs from "fs";
-import path from "path";
-import formidable from "formidable";
-import multer from "multer";
 import { NextResponse } from "next/server";
-import { writeFile } from "fs/promises";
-import { join } from "path";
 
 const docPath = "/Users/Yoga/Desktop/Udemy JavaScript Certificate.jpg";
 
@@ -29,8 +23,8 @@ async function getResultFromExtract(documentToken) {
   const endpoint = `/api/extract/${docType}/2/get_result`;
   let response = await extractJsonRpcCall(endpoint, params);
   while (response.result.status === "processing") {
-    console.log("Still processing... Retrying in 5 seconds");
-    await new Promise((resolve) => setTimeout(resolve, 5000));
+    console.log("Still processing... Retrying in 1 seconds");
+    await new Promise((resolve) => setTimeout(resolve, 1000));
     response = await extractJsonRpcCall(endpoint, params);
   }
   return response;
