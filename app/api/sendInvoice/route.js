@@ -80,26 +80,39 @@ export async function POST(req, res) {
         success: false,
       });
     }
+    // Convert the file data to ArrayBuffer
+    const arrayBuffer = await file.arrayBuffer();
+
+    // Convert the ArrayBuffer to Buffer
+    const bufferr = Buffer.from(arrayBuffer);
+
+    // Encode the Buffer to Base64
+    const encodedFileData = bufferr.toString("base64");
 
     console.log(`Uploaded file: ${file}`);
     const bytes = await file.arrayBuffer();
     const buffer = Buffer.from(bytes);
-    console.log("Buffer Complete");
+    console.log("Buffer Complete: ", buffer);
 
     //write file data in buffer to file system in a new location
 
-    const filePath = join("/", "tmp", file.name);
-    console.log("Path Chosen");
-    const directory = "C:/tmp";
-    if (!fs.existsSync(directory)) {
-      fs.mkdirSync(directory, { recursive: true });
-    }
-    console.log("Path Created");
-    await writeFile(filePath, buffer);
-    console.log(`open ${filePath} to see uploaded files`);
+    const saveFileInNewDirectory = async (file) => {
+      const filePath = join("/", "tmp", file.name);
+      console.log("Path Chosen");
+      const directory = "C:/tmp";
+      if (!fs.existsSync(directory)) {
+        fs.mkdirSync(directory, { recursive: true });
+      }
+      console.log("Path Created");
+      await writeFile(filePath, buffer);
+      console.log(`open ${filePath} to see uploaded files`);
+      return filePath;
+    };
 
-    // return;
-    const base64String = await getBase64String(filePath);
+    // const filePath = saveFileInNewDirectory(file);
+    // const base64String = await getBase64String(filePath);
+
+    const base64String = encodedFileData;
 
     const params = {
       account_token: accountToken,

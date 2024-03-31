@@ -34,11 +34,11 @@ const InvoiceUploader = () => {
     const data = await response.json();
     console.log(data.result);
     if (data.success === true) {
-      setIsLoading(false);
       setInvoiceData(data.result[0]);
     } else {
       console.log(data.message);
     }
+    setIsLoading(false);
   };
 
   if (isLoading) return <h1 className={classes.loading}>Fetching Data...</h1>;
