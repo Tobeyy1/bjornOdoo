@@ -20,18 +20,6 @@ const API_VERSION = {
   applicant: 102,
 };
 
-// const getBase64String = async (req) => {
-//   const { base64String } = await req.json();
-//   return base64String;
-// };
-
-const getBase64String = async (documentPath) => {
-  const fileData = fs.readFileSync(documentPath);
-  const encodedDoc = Buffer.from(fileData).toString("base64");
-  console.log(`Encoded Doc: ${typeof encodedDoc}`);
-  return encodedDoc;
-};
-
 async function getResultFromExtract(documentToken) {
   const params = {
     version: API_VERSION[docType],
@@ -84,34 +72,10 @@ export async function POST(req, res) {
     const arrayBuffer = await file.arrayBuffer();
 
     // Convert the ArrayBuffer to Buffer
-    const bufferr = Buffer.from(arrayBuffer);
+    const buffer = Buffer.from(arrayBuffer);
 
     // Encode the Buffer to Base64
-    const encodedFileData = bufferr.toString("base64");
-
-    console.log(`Uploaded file: ${file}`);
-    const bytes = await file.arrayBuffer();
-    const buffer = Buffer.from(bytes);
-    console.log("Buffer Complete: ", buffer);
-
-    //write file data in buffer to file system in a new location
-
-    const saveFileInNewDirectory = async (file) => {
-      const filePath = join("/", "tmp", file.name);
-      console.log("Path Chosen");
-      const directory = "C:/tmp";
-      if (!fs.existsSync(directory)) {
-        fs.mkdirSync(directory, { recursive: true });
-      }
-      console.log("Path Created");
-      await writeFile(filePath, buffer);
-      console.log(`open ${filePath} to see uploaded files`);
-      return filePath;
-    };
-
-    // const filePath = saveFileInNewDirectory(file);
-    // const base64String = await getBase64String(filePath);
-
+    const encodedFileData = buffer.toString("base64");
     const base64String = encodedFileData;
 
     const params = {
@@ -139,7 +103,8 @@ export async function POST(req, res) {
   } catch (error) {
     return NextResponse.json({
       status: 400,
-      message: "Something went wrong",
+      message: "Something went wrong: " + error.message,
+
       success: false,
     });
   }

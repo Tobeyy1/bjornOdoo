@@ -6,24 +6,17 @@ import InvoiceData from "../components/InvoiceData/InvoiceData";
 import { DUMMY_DATA } from "../utils/utils";
 
 const InvoiceUploader = () => {
-  const [numPages, setNumPages] = useState();
-  const [pageNumber, setPageNumber] = useState(1);
-  const [imageURI, setImageURI] = useState(null);
+  const [formData, setFormData] = useState(null);
   const [invoiceData, setInvoiceData] = useState(null);
-  const [documentToken, setDocumentToken] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
 
-  const imageDropHandler = (imageURI) => {
-    setImageURI(imageURI);
-    console.log("imageURI" + imageURI);
-    sendInvoiceToAPI(imageURI);
+  const fileDropHandler = (formData) => {
+    setFormData(formData);
+    console.log("formData" + formData);
+    sendInvoiceToAPI(formData);
     // console.log(DUMMY_DATA[0]);
     // setInvoiceData(DUMMY_DATA[0]);
   };
-
-  function onDocumentLoadSuccess(numPages) {
-    setNumPages(numPages);
-  }
 
   const sendInvoiceToAPI = async (formData) => {
     setIsLoading(true);
@@ -45,10 +38,10 @@ const InvoiceUploader = () => {
 
   return (
     <div className={classes.container}>
-      {imageURI ? (
+      {formData ? (
         <InvoiceData data={invoiceData} />
       ) : (
-        <StyledDropZone onImageDrop={imageDropHandler} />
+        <StyledDropZone onFileDrop={fileDropHandler} />
       )}
     </div>
   );

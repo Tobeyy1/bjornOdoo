@@ -37,7 +37,7 @@ const rejectStyle = {
   borderColor: "#b61515",
 };
 
-const StyledDropZone = ({ onImageDrop }) => {
+const StyledDropZone = ({ onFileDrop }) => {
   const [disabledInput, setDisabledInput] = useState(false);
   const fileRef = useRef();
   const {
@@ -70,18 +70,10 @@ const StyledDropZone = ({ onImageDrop }) => {
       setDisabledInput(true);
       const formData = new FormData();
       formData.set("file", acceptedFiles[0]);
-      onImageDrop(formData);
+      onFileDrop(formData);
       return;
-      const reader = new FileReader();
-      reader.onload = (e) => {
-        const base64 = e.target.result;
-        console.log("BASE64 Representation: ", base64);
-        // Call the function to handle the Base64 data
-        onImageDrop(base64);
-      };
-      reader.readAsDataURL(acceptedFiles[0]); // Convert the file to Base64
     }
-  }, [disabledInput, acceptedFiles, onImageDrop]);
+  }, [disabledInput, acceptedFiles, onFileDrop]);
 
   const files = acceptedFiles.map((file) => {
     return (
